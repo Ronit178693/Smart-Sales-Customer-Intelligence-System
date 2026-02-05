@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import StandardScaler
 
 
 
@@ -28,6 +29,11 @@ for i in numeric_cols:
 # Performing Encoding
 Label = LabelEncoder()
 df['Gender'] = Label.fit_transform(df['Gender'])
-OneHot = OneHotEncoder()
-df['Location'] = OneHot.fit_transform(df['Location'])
+
+#OneHot Encoding
+df = pd.get_dummies(df, columns=['Location'], drop_first=True)
+
+#Standardization the numeric columns
+scaler = StandardScaler()
+df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
 
