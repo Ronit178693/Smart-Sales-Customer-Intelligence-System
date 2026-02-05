@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
 
 
 
@@ -24,4 +24,10 @@ for i in numeric_cols:
         print(f"Outliers for {i} are present: {outliers}")
         df.drop(outliers.index, inplace=True)
 # Outliers are present in features Avg_Monthly_Spend, Last_Month_Spend and Next_Month_Spend_Label
+
+# Performing Encoding
+Label = LabelEncoder()
+df['Gender'] = Label.fit_transform(df['Gender'])
+OneHot = OneHotEncoder()
+df['Location'] = OneHot.fit_transform(df['Location'])
 
