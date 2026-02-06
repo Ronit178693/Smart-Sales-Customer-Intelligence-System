@@ -69,22 +69,24 @@ print(y['Churn_Label'].value_counts())
 # Preforming train test split
 # Performing train test split using PCA features
 train_x, test_x, train_y, test_y = train_test_split(df_pca, y, test_size=0.2, random_state=42)
+# Checks if the file is being run or imported
+if __name__ == "__main__":
+    # Visualizing the correlation matrix
+    plt.figure(figsize = (10,7))
+    sns.heatmap(df.corr(), annot = True)
+    plt.show()
 
-# Visualizing the correlation matrix
-plt.figure(figsize = (10,7))
-sns.heatmap(df.corr(), annot = True)
-plt.show()
-# PCA already handles multicoolinear columns and the rest columns with high coolinearity are important for our model
+    # PCA already handles multicoolinear columns and the rest columns with high coolinearity are important for our model
 
-# Sving the preprocessed dataframe
-# Combining PCA features and Targets into a final DataFrame
-pca_columns = [f'PC{i+1}' for i in range(df_pca.shape[1])]
-final_df = pd.DataFrame(df_pca, columns=pca_columns)
-final_df['Churn_Label'] = y['Churn_Label'].values
-final_df['Next_Month_Spend_Label'] = y['Next_Month_Spend_Label'].values
+    # Sving the preprocessed dataframe
+    # Combining PCA features and Targets into a final DataFrame
+    pca_columns = [f'PC{i+1}' for i in range(df_pca.shape[1])]
+    final_df = pd.DataFrame(df_pca, columns=pca_columns)
+    final_df['Churn_Label'] = y['Churn_Label'].values
+    final_df['Next_Month_Spend_Label'] = y['Next_Month_Spend_Label'].values
 
-# Saving the preprocessed dataframe
-final_df.to_csv('preprocessed_data.csv', index=False)
+    # Saving the preprocessed dataframe
+    final_df.to_csv('preprocessed_data.csv', index=False)
 
 
 
