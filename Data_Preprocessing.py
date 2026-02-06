@@ -20,7 +20,8 @@ df['Next_Month_Spend_Label'] = df['Next_Month_Spend_Label'].astype(int)
 #To check if there are outliers present 
 #As there are many features we are not going to visualize every feature so we are going to use stastical method
 #Using the IQR Method
-numeric_cols = df.select_dtypes(include='number').columns#Gets all the numeric columns from the dataset
+# Gets numeric columns but excludes targets so we don't scale them
+numeric_cols = df.select_dtypes(include='number').columns.drop(['Churn_Label', 'Next_Month_Spend_Label'], errors='ignore')
 for i in numeric_cols:
     Q1 = df[i].quantile(0.25)
     Q3 = df[i].quantile(0.75)
@@ -39,7 +40,7 @@ Label = LabelEncoder()
 df['Gender'] = Label.fit_transform(df['Gender'])
 
 #OneHot Encoding
-df = pd.get_dummies(df, columns=['Location'], drop_first=True)
+df = pd.get_dummies(df, columns=['Location'], drop_first=True, dtype = int)
 
 #Standardization the numeric columns
 scaler = StandardScaler()
@@ -61,7 +62,11 @@ X = df.drop(target_cols, axis=1)
 pca = PCA(n_components = 0.95) # keeping 95% of the varience
 df_pca = pca.fit_transform(X)
 print(f"Original shape: {X.shape}, Reduced shape: {df_pca.shape}")
-print(df_pca)
+
+#Checking classification cabel value count
+print(y['Churn_Label'].value_counts())
+#As the
+
 
 
 
