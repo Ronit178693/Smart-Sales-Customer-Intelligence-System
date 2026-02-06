@@ -3,9 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
-import seaborn as sns
-
+from sklearn.model_selection import train_test_split
 
 
 
@@ -65,7 +63,9 @@ print(f"Original shape: {X.shape}, Reduced shape: {df_pca.shape}")
 
 #Checking classification cabel value count
 print(y['Churn_Label'].value_counts())
-#As the
+#As there is minute imbalance we dont have to do anything
+# Preforming train test split
+train_x,test_x,train_y,test_y = train_test_split(X,y,test_size = 0.2,random_state = 42)
 
 
 
