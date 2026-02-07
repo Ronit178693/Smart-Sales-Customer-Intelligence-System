@@ -4,6 +4,7 @@ from Data_Preprocessing import train_x, test_x, train_y, test_y
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import RandomizedSearchCV
 
 
 df = pd.read_csv("preprocessed_data.csv")
@@ -22,9 +23,31 @@ print("Cross Validation Scores: ", cross_val)
 print("Mean Cross Validation Score: ", np.mean(cross_val))
 # Model is performing good while Cross Validating
 
-Linear.fit(train_x, train_y['Next_Month_Spend_Label'])
+# Hyperparameter Tuning for Linear Regression
+param_grid = {
+    'fit_intercept': [True, False],
+    'positive': [True, False]
+}
 
-pred_y = Linear.predict(test_x)
+random_search = RandomizedSearchCV(
+    estimator=Linear,
+    param_distributions=param_grid,
+    n_iter=4,
+    cv=5,
+    scoring='r2',
+    random_state=42
+)
+
+random_search.fit(train_x, train_y['Next_Month_Spend_Label'])
+
+print("Best Parameters:", random_search.best_params_)
+print("Best R2 Score:", random_search.best_score_)
+
+# Using the best model
+best_model = random_search.best_estimator_
+best_model.fit(train_x, train_y['Next_Month_Spend_Label'])
+
+pred_y = best_model.predict(test_x)
     
 # Regression model evaluation
 print("Mean Absolute Error: ", mean_absolute_error(test_y['Next_Month_Spend_Label'], pred_y))
