@@ -38,3 +38,11 @@ Kmeans.predict(test_x)
 centroid = Kmeans.cluster_centers_
 print("Centroids: ", centroid)
 
+#Visualizing the clusters
+plt.figure(figsize = (10,7))
+sns.scatterplot(x = train_x[:, 0], y = train_x[:, 1], hue = Kmeans.labels_)
+plt.scatter(centroid[:, 0], centroid[:, 1], marker = 'x', s = 100, color = 'red')
+plt.title('Clusters')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.show()
