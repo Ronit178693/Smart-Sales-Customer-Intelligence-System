@@ -48,3 +48,7 @@ plt.title('Clusters')
 plt.xlabel('Feature 1')
 plt.ylabel('Feature 2')
 plt.show()
+
+import joblib
+joblib.dump(Kmeans, 'pkl/kmeans_model.pkl')
+

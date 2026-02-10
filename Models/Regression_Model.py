@@ -5,9 +5,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RandomizedSearchCV
+import joblib
 
-
-df = pd.read_csv("preprocessed_data.csv")
+# We don't need to read the csv again as we are importing the data from Data_Preprocessing
+# df = pd.read_csv("preprocessed_data.csv") 
 
 
 Linear = LinearRegression()
@@ -55,3 +56,5 @@ print("Mean Squared Error: ", mean_squared_error(test_y['Next_Month_Spend_Label'
 print("Root Mean Squared Error: ", np.sqrt(mean_squared_error(test_y['Next_Month_Spend_Label'], pred_y)))
 print("R-squared Score: ", r2_score(test_y['Next_Month_Spend_Label'], pred_y))
 #Linear Regression works well for this dataset
+
+joblib.dump(best_model, 'pkl/Regression_Model.pkl')

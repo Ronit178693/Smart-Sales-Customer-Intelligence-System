@@ -7,6 +7,7 @@ from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import loguniform
 # Importing processed data directly
 from Data_Preprocessing import train_x, test_x, train_y, test_y
+import joblib
 
 # Training Logistic Regression
 LR = LogisticRegression()
@@ -59,3 +60,5 @@ print(classification_report(test_y['Churn_Label'], pred_y))
 print("Confusion Matrix:")
 print(confusion_matrix(test_y['Churn_Label'], pred_y))
 # Our model is working perfectly 
+
+joblib.dump(best_model, 'pkl/Classification_Model.pkl')

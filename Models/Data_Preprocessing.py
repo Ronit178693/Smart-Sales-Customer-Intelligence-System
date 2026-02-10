@@ -6,10 +6,11 @@ from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
 
 
 
-df = pd.read_csv("customer_data.csv")
+df = pd.read_csv("Dataset/customer_data.csv")
 
 print(df.isnull().sum())# Null or missing values in each column
 
@@ -31,7 +32,7 @@ for i in numeric_cols:
     outliers = df[(df[i] < lower_bound) | (df[i] > upper_bound)] 
     #Getting only the features with outliers
     if not outliers.empty:
-        print(f"Outliers for {i} are present: {outliers}")
+        # print(f"Outliers for {i} are present: {outliers}")
         df.drop(outliers.index, inplace=True)
 # Outliers are present in features Avg_Monthly_Spend, Last_Month_Spend and Next_Month_Spend_Label
 
@@ -86,7 +87,11 @@ if __name__ == "__main__":
     final_df['Next_Month_Spend_Label'] = y['Next_Month_Spend_Label'].values
 
     # Saving the preprocessed dataframe
-    final_df.to_csv('preprocessed_data.csv', index=False)
+    final_df.to_csv("Dataset/preprocessed_data.csv", index=False)
 
 
 
+# Saving the preprocessing objects
+joblib.dump(scaler, 'pkl/scaler.pkl')
+joblib.dump(pca, 'pkl/pca.pkl')
+joblib.dump(Label, 'pkl/gender_encoder.pkl')
