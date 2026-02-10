@@ -5,6 +5,8 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import RandomizedSearchCV
 
 # Using the Elbow Method to find the optimal number of clusters
 wcss = []
@@ -20,11 +22,11 @@ plt.xlabel('Number of Clusters')
 plt.ylabel('WCSS')
 plt.show()
 
-# The optimal K will be either 4, 5
+# The optimal K will be either 3, 4
 
 #Initializing the K-Means Algorithm
 Kmeans = KMeans(
-    n_clusters = 4,
+    n_clusters = 3,
     random_state = 42,
     init = 'k-means++', # Using k-means++ for better initialization
     n_init = 10 # Number of times the algorithm will run with different centroid seeds
@@ -32,8 +34,8 @@ Kmeans = KMeans(
 #Model Training on the training dataset
 Kmeans.fit(train_x)
 #Predicting the clusters
-Kmeans.predict(train_x)
-Kmeans.predict(test_x)
+label = Kmeans.predict(train_x)
+print("Silhouette Score: ", silhouette_score(train_x, label))
 #Getting the Centroids
 centroid = Kmeans.cluster_centers_
 print("Centroids: ", centroid)
