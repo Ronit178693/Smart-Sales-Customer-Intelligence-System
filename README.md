@@ -1,129 +1,152 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0f1a,40:0d2137,100:00d4ff&height=220&section=header&text=🧠%20Smart%20Sales&fontSize=68&fontColor=ffffff&fontAlignY=40&desc=Customer%20Intelligence%20%26%20ML%20Analytics%20Platform&descColor=00d4ff&descAlignY=62&animation=fadeIn" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a1a,40:1a0d2e,100:7c3aed&height=220&section=header&text=🧠%20Smart%20Sales&fontSize=68&fontColor=ffffff&fontAlignY=40&desc=Customer%20Intelligence%20System%20%7C%20ML%20%2B%20Streamlit&descColor=a78bfa&descAlignY=62&animation=fadeIn" />
 
 <br/>
 
-<img src="https://img.shields.io/badge/LANGUAGE-Python-3776AB?style=for-the-badge&labelColor=0a0f1a&logo=python&logoColor=white"/>
-<img src="https://img.shields.io/badge/TYPE-ML%20Pipeline-00d4ff?style=for-the-badge&labelColor=0a0f1a"/>
-<img src="https://img.shields.io/badge/MODELS-3+-a78bfa?style=for-the-badge&labelColor=0a0f1a"/>
-<img src="https://img.shields.io/badge/NOISE%20REDUCED-40%25-22d3ee?style=for-the-badge&labelColor=0a0f1a"/>
+<img src="https://img.shields.io/badge/FRAMEWORK-Streamlit-FF4B4B?style=for-the-badge&labelColor=0a0a1a&logo=streamlit&logoColor=white"/>
+<img src="https://img.shields.io/badge/ML%20MODELS-3-a78bfa?style=for-the-badge&labelColor=0a0a1a"/>
+<img src="https://img.shields.io/badge/FEATURES-9-7c3aed?style=for-the-badge&labelColor=0a0a1a"/>
+<img src="https://img.shields.io/badge/CLUSTERS-K%3D3-22d3ee?style=for-the-badge&labelColor=0a0a1a"/>
 
 <br/><br/>
 
-> *Transform raw customer data into business intelligence — segment, predict, and retain.*
+> *Input a customer. Get their segment, churn risk, and next month's spend — instantly.*
 
 </div>
 
 ---
 
-## 📉 The Business Problem
+## 🎯 What It Does
 
-```
-❌  Businesses lose customers without knowing why — until it's too late
-❌  Marketing spend wasted on low-value or already-churned customers
-❌  No way to distinguish high-value segments from average ones
-❌  Raw transaction data is noisy, inconsistent, and hard to act on
-```
-
-## ✅ What Smart Sales Does
-
-```
-✔  Cleans & normalizes raw data — 40% feature noise reduction via preprocessing
-✔  Segments customers into behavioral clusters using K-Means + Elbow/Silhouette
-✔  Predicts churn probability before it happens — act, don't react
-✔  Identifies high-value customers for targeted retention campaigns
-✔  Outputs actionable insights, not just model accuracy numbers
-```
-
----
-
-## 🔬 ML Pipeline — End to End
+Three ML models. One dashboard. Actionable intelligence in seconds.
 
 <div align="center">
 
-```
-  RAW DATA
-     │
-     ▼
-┌─────────────────────┐
-│   DATA PREPROCESSING │  → Outlier detection, normalization, encoding
-└─────────────────────┘
-     │
-     ▼
-┌─────────────────────┐
-│  FEATURE ENGINEERING │  → PCA (95% variance retained), t-SNE, selection
-└─────────────────────┘
-     │
-     ├──────────────────────────────────────┐
-     ▼                                      ▼
-┌──────────────────┐               ┌──────────────────────┐
-│  UNSUPERVISED ML  │               │    SUPERVISED ML      │
-│  K-Means Cluster  │               │  Logistic Regression  │
-│  Elbow + Silhouett│               │  Random Forest        │
-│  Customer Segments│               │  Gradient Boosting    │
-└──────────────────┘               └──────────────────────┘
-     │                                      │
-     └──────────────┬───────────────────────┘
-                    ▼
-         ┌─────────────────────┐
-         │   BUSINESS INSIGHTS  │
-         │  Churn Probability   │
-         │  High-Value Segments │
-         │  Sales Opportunities │
-         └─────────────────────┘
-```
-
-</div>
-
----
-
-## 🎯 Key Features
-
 <table>
   <tr>
-    <td width="50%">
-
-**🔵 Unsupervised Learning**
-- K-Means customer segmentation
-- Elbow method + Silhouette score validation
-- Behavioral cluster profiling
-
-**🟠 Supervised Learning**
-- Logistic Regression (baseline)
-- Random Forest (ensemble)
-- Gradient Boosting (boosted)
-- RandomizedSearchCV hyperparameter tuning (5-fold CV)
-
+    <td align="center" width="240">
+      <h3>🔵 Segmentation</h3>
+      <b>K-Means Clustering</b><br/>
+      <sub>Groups customers into 3 behavioral clusters for targeted marketing strategies</sub>
     </td>
-    <td width="50%">
-
-**🟣 Feature Engineering**
-- PCA — retains 95% variance, reduces dimensionality
-- t-SNE for cluster visualization
-- Outlier detection & removal
-- Label encoding + feature scaling
-
-**🟢 Model Evaluation**
-- Accuracy, Precision, Recall, F1-score
-- Confusion matrices
-- Cross-validation for generalization
-- Exportable insight reports
-
+    <td align="center" width="240">
+      <h3>🔴 Churn Risk</h3>
+      <b>Logistic Regression</b><br/>
+      <sub>Predicts High Risk vs Low Risk — act before the customer leaves</sub>
+    </td>
+    <td align="center" width="240">
+      <h3>🟢 Future Value</h3>
+      <b>Linear Regression</b><br/>
+      <sub>Forecasts exact $ spend next month for revenue planning</sub>
     </td>
   </tr>
 </table>
 
+</div>
+
 ---
 
-## 📊 Business Outputs
+## 🔬 ML Pipeline — Deep Dive
+
+<div align="center">
 
 ```
-📌  Customer Segments       →  Who are your customers, behaviorally?
-📉  Churn Probability       →  Who is about to leave — and when?
-💎  High-Value Customers    →  Who drives 80% of your revenue?
-📈  Sales Opportunity Score →  Where should you focus next quarter?
+  RAW INPUT (9 Features)
+  Age · Gender · Location · Tenure · Avg Monthly Spend
+  Last Month Spend · Num Transactions · Days Since Purchase · Support Tickets
+          │
+          ▼
+  ┌───────────────────────┐
+  │   DATA PREPROCESSING   │
+  │  Label Encode Gender   │
+  │  One-Hot Encode Location│
+  │  StandardScaler        │
+  └───────────────────────┘
+          │
+          ▼
+  ┌───────────────────────┐
+  │         PCA            │  → Dimensionality reduction
+  │   (pca.pkl loaded)     │    Captures max variance
+  └───────────────────────┘
+          │
+    ┌─────┴──────┬──────────────┐
+    ▼            ▼              ▼
+┌────────┐  ┌─────────┐  ┌──────────┐
+│K-Means │  │Logistic │  │  Linear  │
+│Cluster │  │Regress. │  │Regress.  │
+│kmeans  │  │Classif. │  │Regress.  │
+│.pkl    │  │_Model   │  │_Model    │
+│        │  │.pkl     │  │.pkl      │
+└────────┘  └─────────┘  └──────────┘
+    │            │              │
+    ▼            ▼              ▼
+ Group 0/1/2  🔴 High Risk   💵 $XXX.XX
+              🟢 Low Risk    next month
 ```
+
+</div>
+
+---
+
+## 🖥️ App Workflow
+
+```
+1. OPEN DASHBOARD
+   └── Sidebar: Choose input mode
+         ├── 📋 Existing Customer  →  Select Customer ID
+         │                             Auto-populates all fields from CSV
+         └── ✏️  Manual Entry      →  Fill in 9 feature fields manually
+
+2. HIT PREDICT
+   └── Inputs encoded → scaled → PCA transformed
+         └── Passed simultaneously to all 3 pkl models
+
+3. VIEW RESULTS
+   ├── 🔵 Customer Segment    →  Group 0 / 1 / 2
+   ├── 🔴🟢 Churn Risk        →  High Risk (red) or Low Risk (green)
+   └── 💵 Predicted Spend     →  $XXX.XX next month
+```
+
+---
+
+## 🧪 Model Details
+
+<details>
+<summary><b>🔴 Churn Classification — Logistic Regression</b></summary>
+
+<br/>
+
+- **Tuned params:** `C`, `penalty`, `solver`, `class_weight`
+- **Method:** RandomizedSearchCV — 5-fold Cross-Validation
+- **Output:** Binary — `High Risk (1)` or `Low Risk (0)`
+- **Metric:** Accuracy, Precision, Recall, F1-score
+
+</details>
+
+<details>
+<summary><b>🟢 Spend Regression — Linear Regression</b></summary>
+
+<br/>
+
+- **Tuned params:** `fit_intercept`, `positive`
+- **Method:** RandomizedSearchCV to minimize MAE & RMSE
+- **Output:** Continuous — predicted $ spend next month
+- **Metric:** MAE, RMSE
+
+</details>
+
+<details>
+<summary><b>🔵 Customer Clustering — K-Means</b></summary>
+
+<br/>
+
+- **k = 3** — determined by Elbow Method (WCSS vs k plot)
+- **Validated** with Silhouette Score
+- **Output:** Cluster label — Group 0, 1, or 2
+- Trained on PCA-reduced feature space
+
+</details>
 
 ---
 
@@ -134,15 +157,39 @@
 <img src="https://skillicons.dev/icons?i=python&theme=dark"/>
 <br/><br/>
 
+<img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white"/>
 <img src="https://img.shields.io/badge/Scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white"/>
 <img src="https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white"/>
 <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white"/>
+<img src="https://img.shields.io/badge/joblib-4B5563?style=flat-square"/>
 <img src="https://img.shields.io/badge/Matplotlib-11557C?style=flat-square"/>
 <img src="https://img.shields.io/badge/Seaborn-4C72B0?style=flat-square"/>
-<img src="https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white"/>
-<img src="https://img.shields.io/badge/VS%20Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white"/>
 
 </div>
+
+---
+
+## 📁 Project Structure
+
+```
+Smart-Sales/
+├── app.py                        # Streamlit UI + inference logic
+├── Dataset/
+│   ├── customer_data.csv         # Raw customer profiles
+│   └── preprocessed_data.csv     # Cleaned & encoded training data
+├── Models/
+│   ├── Data_Preprocessing.py     # Cleaning, encoding, train/test split
+│   ├── Classification_Model.py   # Trains churn logistic regression
+│   ├── Regression_Model.py       # Trains spend linear regression
+│   └── Unsupervised_model.py     # Trains K-Means with Elbow method
+└── pkl/
+    ├── scaler.pkl                 # StandardScaler artifact
+    ├── pca.pkl                    # PCA model artifact
+    ├── gender_encoder.pkl         # LabelEncoder for Gender
+    ├── Classification_Model.pkl   # Churn prediction model
+    ├── Regression_Model.pkl       # Spend forecast model
+    └── kmeans_model.pkl           # Customer clustering model
+```
 
 ---
 
@@ -155,51 +202,31 @@ cd Smart-Sales-Custom
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+source venv/bin/activate       # Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Launch notebook
-jupyter notebook
+# Train models (generates .pkl files)
+python Models/Data_Preprocessing.py
+python Models/Classification_Model.py
+python Models/Regression_Model.py
+python Models/Unsupervised_model.py
+
+# Launch the dashboard
+streamlit run app.py
 ```
 
 ---
 
-## 📁 Project Structure
+## 📈 Business Impact
 
-```
-Smart-Sales/
-├── data/
-│   ├── raw/                  # Original customer dataset
-│   └── processed/            # Cleaned & encoded data
-├── notebooks/
-│   ├── 01_preprocessing.ipynb
-│   ├── 02_eda.ipynb
-│   ├── 03_clustering.ipynb
-│   └── 04_churn_prediction.ipynb
-├── models/
-│   └── trained_models/       # Saved model artifacts
-├── outputs/
-│   └── insights/             # Exported business reports
-├── src/
-│   ├── preprocess.py
-│   ├── features.py
-│   ├── cluster.py
-│   └── predict.py
-└── requirements.txt
-```
-
----
-
-## 📈 Expected Business Impact
-
-| Metric | Impact |
-|--------|--------|
-| 📉 Customer Churn | Early detection → proactive retention |
-| 💰 Customer LTV | Focus resources on high-value segments |
-| 🎯 Marketing ROI | Targeted campaigns, not spray-and-pray |
-| 🔍 Sales Efficiency | Score opportunities before pursuing them |
+| Intelligence | Business Use |
+|---|---|
+| 🔵 **Customer Segments** | Tailor campaigns per cluster — stop generic blasting |
+| 🔴 **Churn Risk** | Trigger retention offers before the customer leaves |
+| 💵 **Future Spend** | Forecast next month's revenue with customer-level precision |
+| 📊 **Combined View** | Prioritize high-value, low-churn-risk customers for upsells |
 
 ---
 
@@ -207,10 +234,10 @@ Smart-Sales/
 
 **Built with 🧠 by [Ronit Agrawal](https://github.com/Ronit178693)**
 
-<img src="https://img.shields.io/badge/Open%20to%20Feedback-00d4ff?style=for-the-badge&labelColor=0a0f1a"/>
+<img src="https://img.shields.io/badge/Open%20to%20Feedback-a78bfa?style=for-the-badge&labelColor=0a0a1a"/>
 
 <br/><br/>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,60:0d2137,100:0a0f1a&height=120&section=footer&animation=fadeIn" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7c3aed,60:1a0d2e,100:0a0a1a&height=120&section=footer&animation=fadeIn" />
 
 </div>
