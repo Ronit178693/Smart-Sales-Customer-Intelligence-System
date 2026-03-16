@@ -1,4 +1,4 @@
-from Data_Preprocessing import train_x, test_x, train_y, test_y
+from Data_Preprocessing import train_x, test_x
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
@@ -26,7 +26,7 @@ plt.show()
 
 #Initializing the K-Means Algorithm
 Kmeans = KMeans(
-    n_clusters = 3,
+    n_clusters = 2,
     random_state = 42,
     init = 'k-means++', # Using k-means++ for better initialization
     n_init = 10 # Number of times the algorithm will run with different centroid seeds
@@ -34,8 +34,8 @@ Kmeans = KMeans(
 #Model Training on the training dataset
 Kmeans.fit(train_x)
 #Predicting the clusters
-label = Kmeans.predict(train_x)
-print("Silhouette Score: ", silhouette_score(train_x, label))
+label = Kmeans.predict(test_x)
+print("Silhouette Score: ", silhouette_score(test_x, label))
 #Getting the Centroids
 centroid = Kmeans.cluster_centers_
 print("Centroids: ", centroid)
