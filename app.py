@@ -206,7 +206,10 @@ if models:
                 st.metric(label="Cluster", value=f"Group {cluster}")
                 
             with c2:
-                st.warning("Churn Risk") if churn_risk == 1 else st.success("Churn Risk")
+                if churn_risk == 1:
+                    st.warning("Churn Risk")
+                else:
+                    st.success("Churn Risk")
                 risk_label = "High Risk" if churn_risk == 1 else "Low Risk"
                 st.metric(label="Status", value=risk_label)
                 
