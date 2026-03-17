@@ -46,8 +46,8 @@ st.markdown("""
         backdrop-filter: blur(10px);
         border: 1px solid rgba(51, 65, 85, 0.5);
         border-top: 1px solid rgba(148, 163, 184, 0.15);
-        border-radius: 12px; /* Smoother rounding */
-        padding: 24px;
+        border-radius: 12px;
+        padding: 16px; /* Reduced padding to fit 6 columns */
         margin-bottom: 16px;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
         transition: all 0.25s ease;
@@ -77,25 +77,29 @@ st.markdown("""
     
     /* Card Top Label */
     .metric-label {
-        font-size: 0.825rem;
-        font-weight: 500;
+        font-size: 0.75rem; /* Smaller for narrow columns */
+        font-weight: 600;
         color: #94A3B8;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        margin-bottom: 8px;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     /* Card Big Number */
     .metric-value {
-        font-size: 2.5rem;
+        font-size: 2rem; /* Scaled down slightly to prevent huge numbers wrapping */
         font-weight: 700;
         color: #F8FAFC;
         line-height: 1.1;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.02em;
         font-feature-settings: "tnum" on, "lnum" on; /* tabular lining numbers */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     /* Card Subtext / Delta */
@@ -292,25 +296,35 @@ def preprocess_input(data, models):
     """Transform raw input data into the format expected by the models."""
     input_df = pd.DataFrame([data])
 
-    # Encode Gender
+    # Convert numeric fields to int where necessary (as done in Data_Preprocessing.py)
+    input_df['Avg_Monthly_Spend'] = input_df['Avg_Monthly_Spend'].astype(int)
+    input_df['Last_Month_Spend'] = input_df['Last_Month_Spend'].astype(int)
+
+    # Encode Gender using the loaded LabelEncoder
     try:
-        input_df['Gender'] = models['encoder'].transform(input_df['Gender'])[0]
+        input_df['Gender'] = models['encoder'].transform(input_df['Gender'])
     except Exception:
+        # Fallback if transform fails (should not happen if data is 'Male'/'Female')
         input_df['Gender'] = input_df['Gender'].apply(lambda x: 1 if x == 'Male' else 0)
 
-    # Encode Location (One-Hot)
+    # Encode Location (One-Hot) - matching Data_Preprocessing.py name mapping
     loc = input_df.pop('Location').values[0]
     input_df['Location_Suburban'] = 1 if loc == 'Suburban' else 0
     input_df['Location_Urban'] = 1 if loc == 'Urban' else 0
 
-    # Scale numeric features
+    # Numeric features to scale (must matches order in Data_Preprocessing.py numeric_cols)
+    # numeric_cols in training were: Age, Tenure_Months, Avg_Monthly_Spend, Last_Month_Spend, 
+    # Num_Transactions, Days_Since_Last_Purchase, Support_Tickets
     numeric_features = [
         'Age', 'Tenure_Months', 'Avg_Monthly_Spend', 'Last_Month_Spend',
         'Num_Transactions', 'Days_Since_Last_Purchase', 'Support_Tickets',
     ]
     input_df[numeric_features] = models['scaler'].transform(input_df[numeric_features])
 
-    # Reorder for PCA
+    # Reorder features for PCA (must match training X columns order)
+    # Training X columns order was: Age, Gender, Tenure_Months, Avg_Monthly_Spend, 
+    # Last_Month_Spend, Num_Transactions, Days_Since_Last_Purchase, Support_Tickets, 
+    # Location_Suburban, Location_Urban
     pca_cols = [
         'Age', 'Gender', 'Tenure_Months', 'Avg_Monthly_Spend', 'Last_Month_Spend',
         'Num_Transactions', 'Days_Since_Last_Purchase', 'Support_Tickets',
