@@ -18,234 +18,137 @@ st.set_page_config(
 st.markdown("""
 <style>
     /* ── Global ── */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
     
-    /* Target Streamlit's root elements to apply the dark slate theme */
+    /* Fade-in animation for all containers */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     .stApp {
-        background-color: #0B1120;
-        font-family: 'Inter', sans-serif;
-        color: #F8FAFC;
+        background: radial-gradient(circle at top right, #111827, #010409);
+        font-family: 'Outfit', sans-serif;
+        color: #E2E8F0;
     }
     
-    /* Remove default Streamlit top padding to match Stitch header spacing */
     .block-container {
-        padding-top: 2rem !important;
-        padding-bottom: 2rem !important;
-        max-width: 1400px !important;
+        padding-top: 1.5rem !important;
+        animation: fadeIn 0.8s ease-out;
+        max-width: 1500px !important;
     }
     
-    /* Sidebar */
+    /* Sidebar glassmorphism */
     [data-testid="stSidebar"] {
-        background-color: #0F172A !important;
-        border-right: 1px solid #1E293B !important;
+        background: rgba(15, 23, 42, 0.8) !important;
+        backdrop-filter: blur(12px);
+        border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
     }
     
-    /* ── Cards (Stitch Style) ── */
+    /* ── Premium Cards (Glassmorphism) ── */
     .metric-card {
-        background: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.7) 100%);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(51, 65, 85, 0.5);
-        border-top: 1px solid rgba(148, 163, 184, 0.15);
-        border-radius: 12px;
-        padding: 16px; /* Reduced padding to fit 6 columns */
+        background: rgba(30, 41, 59, 0.45);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 20px;
         margin-bottom: 16px;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
-        transition: all 0.25s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    /* Accent glow on hover */
-    .metric-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #07b6d5, transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .metric-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-        border-color: rgba(7, 182, 213, 0.3);
-    }
-    .metric-card:hover::before {
-        opacity: 1;
+        transform: translateY(-5px) scale(1.02);
+        background: rgba(30, 41, 59, 0.6);
+        border-color: rgba(7, 182, 213, 0.5);
+        box-shadow: 0 12px 40px 0 rgba(7, 182, 213, 0.2);
     }
     
-    /* Card Top Label */
     .metric-label {
-        font-size: 0.75rem; /* Smaller for narrow columns */
+        font-size: 0.8rem;
         font-weight: 600;
         color: #94A3B8;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        margin-bottom: 8px;
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        margin-bottom: 12px;
+        opacity: 0.8;
     }
     
-    /* Card Big Number */
     .metric-value {
-        font-size: 2rem; /* Scaled down slightly to prevent huge numbers wrapping */
-        font-weight: 700;
-        color: #F8FAFC;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-        font-feature-settings: "tnum" on, "lnum" on; /* tabular lining numbers */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-size: 2.2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.01em;
     }
     
-    /* Card Subtext / Delta */
     .metric-delta {
-        font-size: 0.875rem;
-        color: #07b6d5; /* cyan accent */
-        margin-top: 10px;
-        font-weight: 500;
+        font-size: 0.85rem;
+        color: #07b6d5;
+        margin-top: 12px;
+        font-weight: 600;
         display: inline-flex;
-        align-items: center;
-        background: rgba(7, 182, 213, 0.1);
-        padding: 2px 8px;
-        border-radius: 4px;
+        background: rgba(7, 182, 213, 0.15);
+        padding: 4px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(7, 182, 213, 0.2);
     }
 
-    /* ── Headers ── */
+    /* ── Modern Headers ── */
     .page-header {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #F8FAFC;
-        letter-spacing: -0.03em;
-        margin-bottom: 4px;
-        background: linear-gradient(to right, #F8FAFC, #94A3B8);
+        font-size: 3rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #FFFFFF 30%, #38BDF8 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+    
     .page-subtitle {
-        font-size: 1.125rem;
+        font-size: 1.1rem;
         color: #64748B;
-        margin-bottom: 32px;
-        font-weight: 500;
+        margin-bottom: 40px;
+        font-weight: 400;
     }
 
-    /* ── Score badge (Pill shape) ── */
-    .score-badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 6px 14px;
-        border-radius: 9999px; /* full pill */
-        font-weight: 600;
-        font-size: 0.75rem;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        margin-top: 16px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .badge-green  { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge-yellow { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .badge-red    { background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-
-    /* ── Forms and Inputs ── */
-    div[data-baseweb="select"] > div {
-        background-color: #0F172A !important;
-        border: 1px solid #1E293B !important;
-        border-radius: 8px !important;
-        color: #F8FAFC !important;
-    }
-    div[data-baseweb="select"] * {
-        color: #F8FAFC !important;
-    }
-    input[type="number"], input[type="text"] {
-        background-color: #0F172A !important;
-        border: 1px solid #1E293B !important;
-        border-radius: 8px !important;
-        color: #F8FAFC !important;
-    }
-    input[type="number"]:focus, input[type="text"]:focus {
-        border-color: #07b6d5 !important;
-        box-shadow: 0 0 0 1px #07b6d5 !important;
-    }
-    
-    /* Button styling to match Stitch */
+    /* ── Buttons & Inputs ── */
     div.stButton > button {
-        background: linear-gradient(135deg, #07b6d5 0%, #0284c7 100%) !important;
-        color: #ffffff !important;
-        border-radius: 8px !important;
+        background: linear-gradient(135deg, #0EA5E9 0%, #2563EB 100%) !important;
+        border-radius: 12px !important;
         border: none !important;
-        font-weight: 600 !important;
-        padding: 0.5rem 1.5rem !important;
-        transition: all 0.2s ease !important;
-        box-shadow: 0 4px 6px -1px rgba(7, 182, 213, 0.3) !important;
+        padding: 0.6rem 2rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3) !important;
+        transition: all 0.3s ease !important;
     }
+    
     div.stButton > button:hover {
-        transform: translateY(-1px) !important;
-        box-shadow: 0 6px 8px -1px rgba(7, 182, 213, 0.4) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4) !important;
+        filter: brightness(1.1);
     }
 
-    /* ── Sidebar brand ── */
-    .sidebar-brand {
-        padding: 24px 0 32px 0;
-        border-bottom: 1px solid #1E293B;
-        margin-bottom: 24px;
-    }
-    .sidebar-brand h2 {
-        font-size: 1.5rem;
-        font-weight: 800;
-        color: #F8FAFC;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        letter-spacing: -0.03em;
-    }
-    .sidebar-brand h2 span {
-        color: #07b6d5;
-    }
-    .sidebar-brand p {
-        font-size: 0.8rem;
-        color: #64748B;
-        margin: 6px 0 0 0;
-        font-weight: 500;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
+    /* Hide Streamlit Elements while keeping sidebar toggle */
+    header {
+        background-color: transparent !important;
+        border-bottom: none !important;
     }
     
-    /* ── Advanced Streamlit Hiding ── */
-    /* Hide the top header completely */
-    header {visibility: hidden !important;}
-    
-    /* Hide the deploy button and main menu */
     .stAppDeployButton {display: none !important;}
     #MainMenu {visibility: hidden !important;}
     footer {visibility: hidden !important;}
     
-    /* Hide toolbar (the '...' menu) on charts */
-    [data-testid="stToolbar"] {visibility: hidden !important;}
-    
-    /* Remove padding around the main container to allow edge-to-edge if needed */
-    .block-container {
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
-        padding-left: 3rem !important;
-        padding-right: 3rem !important;
-        max-width: 1600px !important;
-    }
-
-    /* ── Dividers ── */
-    hr {
-        border-top: 1px solid rgba(51, 65, 85, 0.4) !important;
-        margin: 2.5rem 0 !important;
-    }
-    
-    /* Hide sidebar collapse button background for cleaner look */
+    /* Ensure the sidebar toggle is visible and matches our theme */
     [data-testid="collapsedControl"] {
-        color: #94A3B8 !important;
-        background-color: transparent !important;
+        color: #E2E8F0 !important;
+        background-color: rgba(15, 23, 42, 0.5) !important;
+        border-radius: 0 8px 8px 0 !important;
+        top: 10px !important;
     }
 </style>
 """, unsafe_allow_html=True)
